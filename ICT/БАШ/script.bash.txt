@@ -1,0 +1,33 @@
+#!/bin/bash
+
+a=$1
+b=$2 
+if (($b==0))
+then
+    echo $(($a+$b)) $(($a-$b)) $(($a*$b)) "#"
+else
+    if (($a==0))
+    then
+        echo $(($a+$b)) $(($a-$b)) $(($a*$b)) "0.00"
+    else
+        multi=$a*$b
+        d=$((($a * 100) / $b))
+        if (($multi>0))
+        then
+            if (($d % 100 == 0))
+            then
+                d="$(($d / 100)).00"
+            else
+                d="$(($d / 100)).$(($d % 100))"
+            fi
+        else
+            if (($d % 100 == 0))
+            then
+                d="$(($d / 100)).00"
+            else
+                d="-$((${d#-} / 100)).$((($d * -1) % 100))"
+            fi
+        fi
+        echo $(($a+$b)) $(($a-$b)) $(($a*$b)) $d
+    fi
+fi
